@@ -1,0 +1,11 @@
+---
+webconsul_packages:
+  - name: curl
+
+webconsul_install_prefix: /mnt
+
+webconsul_consul_template_prefix: webconsul
+
+webconsul_consul_templates:
+  - destination: "{{ webconsul_install_prefix }}/domains.conf"
+    filename: "domains.conf.tpl"

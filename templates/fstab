@@ -1,0 +1,1 @@
+/cbsd/jails-data/web-data/usr/local/etc/consul-template.d /mnt nullfs rw 0 0

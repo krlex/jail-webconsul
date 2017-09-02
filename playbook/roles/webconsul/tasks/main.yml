@@ -1,0 +1,31 @@
+---
+- name: copy helper script
+  copy:
+    src: notify-consul.sh
+    dest: /usr/local/bin/notify-consul.sh
+    mode: 0755
+
+- name: install packages
+  with_items: "{{ webconsul_packages }}"
+  pkgng:
+    name: "{{ item.name }}"
+
+- name: create consul-template directory for webconsul
+  file:
+    path: "/usr/local/etc/consul-templates/{{ webconsul_consul_template_prefix }}"
+    state: directory
+
+- name: copy webconsul consul-template files
+  with_items: "{{ webconsul_consul_templates }}"
+  copy:
+    src: "{{ item.filename }}"
+    dest: "{{ consul_template_root }}/{{ webconsul_consul_template_prefix }}/{{ item.filename }}"
+  notify:
+    - restart consul-template
+
+- name: configure consul-template for webconsul
+  template:
+    src: webconsul.consul.j2
+    dest: /usr/local/etc/consul-template.d/webconsul.conf
+  notify:
+    - restart consul-template
