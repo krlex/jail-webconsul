@@ -20,12 +20,8 @@
   copy:
     src: "{{ item.filename }}"
     dest: "{{ consul_template_root }}/{{ webconsul_consul_template_prefix }}/{{ item.filename }}"
-  notify:
-    - restart consul-template
 
 - name: configure consul-template for webconsul
   template:
     src: webconsul.consul.j2
     dest: /usr/local/etc/consul-template.d/webconsul.conf
-  notify:
-    - restart consul-template
