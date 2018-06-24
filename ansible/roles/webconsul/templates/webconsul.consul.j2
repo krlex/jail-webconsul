@@ -2,6 +2,6 @@
 template {
   source = "{{ consul_template_root }}/{{ webconsul_consul_template_prefix }}/{{ item.filename }}"
   destination = "{{ item.destination }}"
-  command = "/usr/local/bin/notify-consul.sh"
+  command = "sh -c '/usr/local/bin/notify-consul.sh || true'"
 }
 {% endfor %}
